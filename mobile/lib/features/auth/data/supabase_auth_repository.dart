@@ -52,16 +52,10 @@ final class SupabaseAuthRepository implements AuthRepository {
     try {
       return Ok(await action());
     } on AuthException catch (e) {
-      // ignore: avoid_print
-      print('Supabase AuthException: ${e.message} (Status: ${e.statusCode})');
       return Err(_mapFailure(e));
-    } on SocketException catch (e) {
-      // ignore: avoid_print
-      print('SocketException: $e');
+    } on SocketException {
       return const Err(NetworkFailure());
-    } catch (e, st) {
-      // ignore: avoid_print
-      print('Unknown Error: $e\n$st');
+    } on Object {
       return const Err(ServerFailure());
     }
   }
