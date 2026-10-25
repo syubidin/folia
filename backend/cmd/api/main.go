@@ -14,6 +14,7 @@ import (
 	chimw "github.com/go-chi/chi/v5/middleware"
 
 	"github.com/syubidin/folia/backend/internal/config"
+	"github.com/syubidin/folia/backend/internal/handler"
 	"github.com/syubidin/folia/backend/internal/middleware"
 )
 
@@ -26,14 +27,27 @@ func main() {
 		os.Exit(1)
 	}
 
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	auth, err := middleware.NewAuthenticator(cfg.SupabaseURL, cfg.JWTSecret)
+	if err != nil {
+		log.Error("auth", "err", err)
+		os.Exit(1)
+	}
+	limiter := middleware.NewRateLimiter(ctx, 60, 20)
+
 	r := chi.NewRouter()
 	r.Use(chimw.RequestID, chimw.RealIP)
 	r.Use(middleware.Recoverer(log), middleware.SecurityHeaders)
-	r.Use(middleware.BodyLimit(6 << 20)) // Limit 6 MB
+	r.Use(middleware.BodyLimit(6 << 20))
 	r.Use(chimw.Timeout(30 * time.Second))
 
-	r.Get("/healthz", func(w http.ResponseWriter, _ *http.Request) {
-		_, _ = w.Write([]byte("ok"))
+	r.Get("/healthz", func(w http.ResponseWriter, _ *http.Request) { _, _ = w.Write([]byte("ok")) })
+
+	r.Route("/v1", func(r chi.Router) {
+		r.Use(auth.Require, limiter.Limit)
+		r.Get("/me", handler.Me)
 	})
 
 	srv := &http.Server{
@@ -53,10 +67,7 @@ func main() {
 		}
 	}()
 
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	defer stop()
 	<-ctx.Done()
-
 	shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	_ = srv.Shutdown(shutdownCtx)
