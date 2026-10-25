@@ -1,0 +1,18 @@
+# Security & Environment Variables
+backend/.env
+*.env
+*.pem
+
+# Flutter & Dart artifacts
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+
+# Android keystores
+*.jks
+*.keystore
+key.properties
+
+# Go binaries
+backend/bin/
