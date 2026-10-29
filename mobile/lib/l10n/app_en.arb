@@ -1,0 +1,65 @@
+{
+  "@@locale": "en",
+  "myGarden": "My Garden",
+  "plantCount": "{count, plural, =0{No plants yet} =1{1 plant} other{{count} plants}}",
+  "@plantCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchHint": "Search plants",
+  "emptyGardenTitle": "Your garden is empty",
+  "emptyGardenBody": "Add your first plant to start taking care of it.",
+  "emptySearchTitle": "No plants found",
+  "emptySearchBody": "Try a different name or species.",
+  "addPlant": "Add plant",
+  "editPlant": "Edit plant",
+  "plantName": "Plant name",
+  "species": "Species (optional)",
+  "notes": "Notes (optional)",
+  "addPhoto": "Add photo",
+  "changePhoto": "Change photo",
+  "takePhoto": "Take a photo",
+  "chooseFromGallery": "Choose from gallery",
+  "removePhoto": "Remove photo",
+  "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete",
+  "undo": "Undo",
+  "plantSaved": "Plant saved",
+  "plantDeleted": "{name} deleted",
+  "@plantDeleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nameRequired": "Plant name is required",
+  "logout": "Sign out",
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "signInSubtitle": "Sign in to your garden",
+  "signUpSubtitle": "Create a new account",
+  "email": "Email",
+  "password": "Password",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "noAccount": "No account yet? Sign up",
+  "haveAccount": "Already have an account? Sign in",
+  "signUpCheckEmail": "Account created. Check your email to confirm.",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Invalid email format",
+  "passwordTooShort": "At least 8 characters",
+  "errorNetwork": "No internet connection",
+  "errorSession": "Session expired, please sign in again",
+  "errorInvalidCredentials": "Incorrect email or password",
+  "errorValidation": "Invalid data, please check your input",
+  "errorRateLimited": "Too many attempts, try again later",
+  "errorNotFound": "Data not found",
+  "errorServer": "Something went wrong on the server",
+  "errorStorage": "Could not access local storage",
+  "errorPhoto": "Could not load the photo"
+}

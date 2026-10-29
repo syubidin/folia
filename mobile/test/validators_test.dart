@@ -1,15 +1,21 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:folia/core/utils/validators.dart';
+import 'package:folia/l10n/generated/app_localizations.dart';
 
 void main() {
+  final l = lookupAppLocalizations(const Locale('en'));
+
   test('email validator', () {
-    expect(Validators.email(''), isNotNull);
-    expect(Validators.email('abc'), isNotNull);
-    expect(Validators.email('a@b.co'), isNull);
+    final v = Validators.email(l);
+    expect(v(''), isNotNull);
+    expect(v('abc'), isNotNull);
+    expect(v('a@b.co'), isNull);
   });
 
   test('password validator', () {
-    expect(Validators.password('short'), isNotNull);
-    expect(Validators.password('panjang123'), isNull);
+    final v = Validators.password(l);
+    expect(v('short'), isNotNull);
+    expect(v('panjang123'), isNull);
   });
 }

@@ -17,8 +17,10 @@ final class SupabaseAuthRepository implements AuthRepository {
   AuthUser? get currentUser => _map(_auth.currentUser);
 
   @override
-  Stream<AuthUser?> authChanges() =>
-      _auth.onAuthStateChange.map((e) => _map(e.session?.user));
+  Stream<AuthUser?> authChanges() async* {
+    yield currentUser;
+    yield* _auth.onAuthStateChange.map((e) => _map(e.session?.user));
+  }
 
   @override
   Future<Result<void>> signIn({
@@ -61,15 +63,9 @@ final class SupabaseAuthRepository implements AuthRepository {
   }
 
   Failure _mapFailure(AuthException e) => switch (e.statusCode) {
-        '400' ||
-        '401' =>
-          const ValidationFailure('Email atau kata sandi salah'),
-        '422' => const ValidationFailure(
-            'Data tidak valid atau email sudah terdaftar',
-          ),
-        '429' => const ServerFailure(
-            'Terlalu banyak percobaan, coba lagi nanti',
-          ),
+        '400' || '401' => const InvalidCredentialsFailure(),
+        '422' => const ValidationFailure(),
+        '429' => const RateLimitedFailure(),
         _ => const ServerFailure(),
       };
 }

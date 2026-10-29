@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:folia/features/auth/data/auth_providers.dart';
 import 'package:folia/features/auth/presentation/login_screen.dart';
-import 'package:folia/features/plants/presentation/home_placeholder.dart';
+import 'package:folia/features/plants/presentation/garden_screen.dart';
+import 'package:folia/features/plants/presentation/plant_form_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -23,11 +24,20 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const HomePlaceholder(),
+        builder: (context, state) => const GardenScreen(),
       ),
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/plants/new',
+        builder: (context, state) => const PlantFormScreen(),
+      ),
+      GoRoute(
+        path: '/plants/:id/edit',
+        builder: (context, state) =>
+            PlantFormScreen(plantId: state.pathParameters['id']),
       ),
     ],
   );

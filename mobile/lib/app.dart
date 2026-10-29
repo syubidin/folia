@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:folia/core/router/app_router.dart';
 import 'package:folia/core/theme/app_theme.dart';
+import 'package:folia/l10n/generated/app_localizations.dart';
 
 class FoliaApp extends ConsumerWidget {
   const FoliaApp({super.key});
@@ -12,6 +13,8 @@ class FoliaApp extends ConsumerWidget {
       title: 'Folia',
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: ref.watch(routerProvider),
     );
   }

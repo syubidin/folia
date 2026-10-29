@@ -8,6 +8,8 @@ mobile/.dart_tool/
 mobile/build/
 mobile/.flutter-plugins
 mobile/.flutter-plugins-dependencies
+mobile/lib/**/*.g.dart
+mobile/lib/l10n/generated/
 
 # Android keystores
 *.jks

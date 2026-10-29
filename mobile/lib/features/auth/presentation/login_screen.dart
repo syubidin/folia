@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:folia/core/error/result.dart';
 import 'package:folia/core/theme/app_colors.dart';
+import 'package:folia/core/utils/failure_l10n.dart';
+import 'package:folia/core/utils/l10n_x.dart';
 import 'package:folia/core/utils/validators.dart';
 import 'package:folia/features/auth/presentation/auth_controller.dart';
 
@@ -29,22 +31,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     final controller = ref.read(authControllerProvider.notifier);
+    final l10n = context.l10n;
 
     if (_isSignUp) {
       final r = await controller.signUp(_email.text, _password.text);
       if (!mounted) return;
       switch (r) {
         case Ok(:final value) when value:
-          _toast('Akun dibuat. Cek email Anda untuk konfirmasi.');
+          _toast(l10n.signUpCheckEmail);
         case Ok():
           break;
         case Err(:final failure):
-          _toast(failure.message);
+          _toast(failure.localized(l10n));
       }
     } else {
       final r = await controller.signIn(_email.text, _password.text);
       if (!mounted) return;
-      if (r case Err(:final failure)) _toast(failure.message);
+      if (r case Err(:final failure)) _toast(failure.localized(l10n));
     }
   }
 
@@ -55,6 +58,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final loading = ref.watch(authControllerProvider).isLoading;
     final text = Theme.of(context).textTheme;
+    final l10n = context.l10n;
 
     return Scaffold(
       body: SafeArea(
@@ -72,7 +76,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       Text('Folia', style: text.headlineMedium),
                       const SizedBox(height: AppSpacing.sm),
                       Text(
-                        _isSignUp ? 'Buat akun baru' : 'Masuk ke taman Anda',
+                        _isSignUp ? l10n.signUpSubtitle : l10n.signInSubtitle,
                         style: text.bodyLarge,
                       ),
                       const SizedBox(height: AppSpacing.xl),
@@ -81,8 +85,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         keyboardType: TextInputType.emailAddress,
                         autofillHints: const [AutofillHints.email],
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(labelText: 'Email'),
-                        validator: Validators.email,
+                        decoration: InputDecoration(labelText: l10n.email),
+                        validator: Validators.email(l10n),
                       ),
                       const SizedBox(height: AppSpacing.md),
                       TextFormField(
@@ -97,9 +101,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (_) => _submit(),
                         decoration: InputDecoration(
-                          labelText: 'Kata sandi',
+                          labelText: l10n.password,
                           suffixIcon: IconButton(
-                            tooltip: _obscure ? 'Tampilkan' : 'Sembunyikan',
+                            tooltip: _obscure
+                                ? l10n.showPassword
+                                : l10n.hidePassword,
                             icon: Icon(
                               _obscure
                                   ? Icons.visibility_outlined
@@ -109,7 +115,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 setState(() => _obscure = !_obscure),
                           ),
                         ),
-                        validator: Validators.password,
+                        validator: Validators.password(l10n),
                       ),
                       const SizedBox(height: AppSpacing.lg),
                       FilledButton(
@@ -122,7 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                   strokeWidth: 2,
                                 ),
                               )
-                            : Text(_isSignUp ? 'Daftar' : 'Masuk'),
+                            : Text(_isSignUp ? l10n.signUp : l10n.signIn),
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       TextButton(
@@ -130,9 +136,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ? null
                             : () => setState(() => _isSignUp = !_isSignUp),
                         child: Text(
-                          _isSignUp
-                              ? 'Sudah punya akun? Masuk'
-                              : 'Belum punya akun? Daftar',
+                          _isSignUp ? l10n.haveAccount : l10n.noAccount,
                         ),
                       ),
                     ],

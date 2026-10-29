@@ -13,22 +13,37 @@ final class Err<T> extends Result<T> {
 }
 
 sealed class Failure {
-  const Failure(this.message);
-  final String message;
+  const Failure();
 }
 
 final class NetworkFailure extends Failure {
-  const NetworkFailure([super.message = 'Tidak ada koneksi internet']);
+  const NetworkFailure();
 }
 
 final class AuthFailure extends Failure {
-  const AuthFailure([super.message = 'Sesi berakhir, silakan masuk lagi']);
+  const AuthFailure();
 }
 
-final class ServerFailure extends Failure {
-  const ServerFailure([super.message = 'Terjadi kesalahan pada server']);
+final class InvalidCredentialsFailure extends Failure {
+  const InvalidCredentialsFailure();
 }
 
 final class ValidationFailure extends Failure {
-  const ValidationFailure(super.message);
+  const ValidationFailure();
+}
+
+final class RateLimitedFailure extends Failure {
+  const RateLimitedFailure();
+}
+
+final class NotFoundFailure extends Failure {
+  const NotFoundFailure();
+}
+
+final class StorageFailure extends Failure {
+  const StorageFailure();
+}
+
+final class ServerFailure extends Failure {
+  const ServerFailure();
 }
