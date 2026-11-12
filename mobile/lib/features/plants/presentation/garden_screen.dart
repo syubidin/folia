@@ -74,6 +74,11 @@ class _GardenScreenState extends ConsumerState<GardenScreen> {
         title: Text(l10n.myGarden),
         actions: [
           IconButton(
+            tooltip: l10n.identifyPlant,
+            icon: const Icon(Icons.document_scanner_outlined),
+            onPressed: () => context.push('/scan'),
+          ),
+          IconButton(
             tooltip: l10n.logout,
             icon: const Icon(Icons.logout),
             onPressed: () =>

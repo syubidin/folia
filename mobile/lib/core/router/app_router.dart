@@ -4,8 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:folia/features/auth/data/auth_providers.dart';
 import 'package:folia/features/auth/presentation/login_screen.dart';
+import 'package:folia/features/plants/domain/plant.dart';
 import 'package:folia/features/plants/presentation/garden_screen.dart';
 import 'package:folia/features/plants/presentation/plant_form_screen.dart';
+import 'package:folia/features/scan/presentation/scan_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -32,12 +34,20 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/plants/new',
-        builder: (context, state) => const PlantFormScreen(),
+        builder: (context, state) => PlantFormScreen(
+          prefill: state.extra is PlantPrefill
+              ? state.extra! as PlantPrefill
+              : null,
+        ),
       ),
       GoRoute(
         path: '/plants/:id/edit',
         builder: (context, state) =>
             PlantFormScreen(plantId: state.pathParameters['id']),
+      ),
+      GoRoute(
+        path: '/scan',
+        builder: (context, state) => const ScanScreen(),
       ),
     ],
   );

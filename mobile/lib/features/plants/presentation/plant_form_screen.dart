@@ -16,20 +16,21 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PlantFormScreen extends ConsumerWidget {
-  const PlantFormScreen({super.key, this.plantId});
+  const PlantFormScreen({super.key, this.plantId, this.prefill});
 
   final String? plantId;
+  final PlantPrefill? prefill;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final id = plantId;
-    if (id == null) return const _PlantForm();
+    if (id == null) return _PlantForm(prefill: prefill);
 
     return ref.watch(plantByIdProvider(id)).when(
           loading: () => const Scaffold(
             body: Center(child: CircularProgressIndicator()),
           ),
-          error: (e, s) => Scaffold(
+          error: (error, stackTrace) => Scaffold(
             appBar: AppBar(),
             body: Center(child: Text(context.l10n.errorStorage)),
           ),
@@ -46,9 +47,10 @@ class PlantFormScreen extends ConsumerWidget {
 enum _PhotoAction { camera, gallery, remove }
 
 class _PlantForm extends ConsumerStatefulWidget {
-  const _PlantForm({this.initial});
+  const _PlantForm({this.initial, this.prefill});
 
   final Plant? initial;
+  final PlantPrefill? prefill;
 
   @override
   ConsumerState<_PlantForm> createState() => _PlantFormState();
@@ -56,11 +58,16 @@ class _PlantForm extends ConsumerStatefulWidget {
 
 class _PlantFormState extends ConsumerState<_PlantForm> {
   final _formKey = GlobalKey<FormState>();
-  late final _name = TextEditingController(text: widget.initial?.name);
-  late final _species = TextEditingController(text: widget.initial?.species);
+  late final _name = TextEditingController(
+    text: widget.initial?.name ?? widget.prefill?.name,
+  );
+  late final _species = TextEditingController(
+    text: widget.initial?.species ?? widget.prefill?.species,
+  );
   late final _notes = TextEditingController(text: widget.initial?.notes);
   late final PlantImageStore _store = ref.read(plantImageStoreProvider);
-  late String? _imageName = widget.initial?.imageName;
+  late String? _imageName =
+      widget.initial?.imageName ?? widget.prefill?.imageName;
   bool _saved = false;
 
   @override

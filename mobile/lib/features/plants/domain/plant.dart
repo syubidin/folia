@@ -31,3 +31,11 @@ final class PlantInput {
   final String? notes;
   final String? imageName;
 }
+
+final class PlantPrefill {
+  const PlantPrefill({this.name, this.species, this.imageName});
+
+  final String? name;
+  final String? species;
+  final String? imageName;
+}

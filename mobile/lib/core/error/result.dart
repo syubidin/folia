@@ -47,3 +47,7 @@ final class StorageFailure extends Failure {
 final class ServerFailure extends Failure {
   const ServerFailure();
 }
+
+final class ModelFailure extends Failure {
+  const ModelFailure();
+}

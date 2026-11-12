@@ -61,5 +61,20 @@
   "errorNotFound": "Data not found",
   "errorServer": "Something went wrong on the server",
   "errorStorage": "Could not access local storage",
-  "errorPhoto": "Could not load the photo"
+  "errorPhoto": "Could not load the photo",
+  "identifyPlant": "Identify plant",
+  "scanIntroTitle": "Identify a plant",
+  "scanIntroBody": "Take a clear photo of the leaves or flowers in good light. Identification runs on your phone, no internet needed.",
+  "analyzing": "Identifying…",
+  "itLooksLike": "It looks like",
+  "matchPercent": "{percent}% match",
+  "@matchPercent": { "placeholders": { "percent": { "type": "int" } } },
+  "otherPossibilities": "Other possibilities",
+  "notSureTitle": "We're not sure",
+  "notSureBody": "Pick the closest match, or try a clearer photo.",
+  "noPlantTitle": "No plant detected",
+  "noPlantBody": "Point the camera at leaves or flowers in good light.",
+  "addToGarden": "Add to my garden",
+  "tryAnotherPhoto": "Try another photo",
+  "errorModel": "Plant identification is unavailable right now"
 }

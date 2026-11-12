@@ -11,5 +11,6 @@ extension FailureL10n on Failure {
         NotFoundFailure() => l.errorNotFound,
         StorageFailure() => l.errorStorage,
         ServerFailure() => l.errorServer,
+        ModelFailure() => l.errorModel,
       };
 }

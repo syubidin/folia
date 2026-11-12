@@ -18,18 +18,31 @@ class PlantImageStore {
     return _dir = dir;
   }
 
-  Future<String?> pick(ImageSource source) async {
+  Future<String?> pickTemp(ImageSource source, {int maxSide = 1280}) async {
     final picked = await _picker.pickImage(
       source: source,
-      maxWidth: 1280,
-      maxHeight: 1280,
+      maxWidth: maxSide.toDouble(),
+      maxHeight: maxSide.toDouble(),
       imageQuality: 80,
     );
-    if (picked == null) return null;
+    return picked?.path;
+  }
+
+  Future<String> adopt(String sourcePath) async {
     final dir = await directory();
     final name = '${const Uuid().v4()}.jpg';
-    await File(picked.path).copy(p.join(dir.path, name));
+    await File(sourcePath).copy(p.join(dir.path, name));
+    try {
+      await File(sourcePath).delete();
+    } on FileSystemException {
+      // file cache diabaikan
+    }
     return name;
+  }
+
+  Future<String?> pick(ImageSource source) async {
+    final temp = await pickTemp(source);
+    return temp == null ? null : await adopt(temp);
   }
 
   Future<void> delete(String name) async {

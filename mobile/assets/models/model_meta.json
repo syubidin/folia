@@ -1,0 +1,10 @@
+{
+  "version": "2026.11.1",
+  "inputSize": 224,
+  "classes": 6,
+  "accept": 0.5,
+  "minMargin": 0.1,
+  "reject": 0.1,
+  "valTop1": 0.918,
+  "valTop3": 0.967
+}

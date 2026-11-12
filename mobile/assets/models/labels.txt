@@ -1,0 +1,6 @@
+_background
+chlorophytum_comosum
+dracaena_trifasciata
+epipremnum_aureum
+monstera_deliciosa
+zamioculcas_zamiifolia

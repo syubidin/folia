@@ -1,0 +1,47 @@
+{
+    "monstera_deliciosa": {
+        "scientificName": "Monstera deliciosa",
+        "names": {
+            "id": "Monstera",
+            "en": "Swiss cheese plant"
+        },
+        "waterEveryDays": 7,
+        "petToxic": true
+    },
+    "epipremnum_aureum": {
+        "scientificName": "Epipremnum aureum",
+        "names": {
+            "id": "Sirih gading",
+            "en": "Golden pothos"
+        },
+        "waterEveryDays": 7,
+        "petToxic": true
+    },
+    "dracaena_trifasciata": {
+        "scientificName": "Dracaena trifasciata",
+        "names": {
+            "id": "Lidah mertua",
+            "en": "Snake plant"
+        },
+        "waterEveryDays": 14,
+        "petToxic": true
+    },
+    "zamioculcas_zamiifolia": {
+        "scientificName": "Zamioculcas zamiifolia",
+        "names": {
+            "id": "Pohon dolar",
+            "en": "ZZ plant"
+        },
+        "waterEveryDays": 14,
+        "petToxic": true
+    },
+    "chlorophytum_comosum": {
+        "scientificName": "Chlorophytum comosum",
+        "names": {
+            "id": "Lili paris",
+            "en": "Spider plant"
+        },
+        "waterEveryDays": 5,
+        "petToxic": false
+    }
+}

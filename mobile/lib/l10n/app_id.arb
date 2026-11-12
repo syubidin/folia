@@ -47,5 +47,19 @@
   "errorNotFound": "Data tidak ditemukan",
   "errorServer": "Terjadi kesalahan pada server",
   "errorStorage": "Tidak dapat mengakses penyimpanan lokal",
-  "errorPhoto": "Foto tidak dapat dimuat"
+  "errorPhoto": "Foto tidak dapat dimuat",
+  "identifyPlant": "Kenali tanaman",
+  "scanIntroTitle": "Kenali tanaman",
+  "scanIntroBody": "Foto daun atau bunga dengan jelas dan cahaya cukup. Pengenalan berjalan di ponsel Anda, tanpa internet.",
+  "analyzing": "Mengenali…",
+  "itLooksLike": "Sepertinya ini",
+  "matchPercent": "Kecocokan {percent}%",
+  "otherPossibilities": "Kemungkinan lain",
+  "notSureTitle": "Kami belum yakin",
+  "notSureBody": "Pilih yang paling mendekati, atau coba foto yang lebih jelas.",
+  "noPlantTitle": "Tanaman tidak terdeteksi",
+  "noPlantBody": "Arahkan kamera ke daun atau bunga dengan cahaya cukup.",
+  "addToGarden": "Tambah ke taman saya",
+  "tryAnotherPhoto": "Coba foto lain",
+  "errorModel": "Pengenalan tanaman sedang tidak tersedia"
 }
